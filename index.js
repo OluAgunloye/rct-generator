@@ -19,8 +19,8 @@ program
       case 'screen':
         mkdirp(basePath = join(basePath, 'screens', formattedName));
 
+        generateTemplate(join(basePath, `${formattedName}.component.tsx`), 'component.tsx', formattedName + '-component');
         generateTemplate(join(basePath, `${formattedName}.container.tsx`), 'container.tsx', formattedName);
-        generateTemplate(join(basePath, `${formattedName}.component.tsx`), 'component.tsx', formattedName);
         generateTemplate(join(basePath, 'index.ts'), 'screen.ts', formattedName);
         generateTemplate(join(basePath, 'styles.ts'), 'styles.ts');
         break;

@@ -15,7 +15,7 @@ const _toPascalCase = (str) => {
 
 const formatName = (name) => {
   const delimiter = /-|_/;
-  const extra = /component|container|screen/i;
+  const extra = /container|screen/i;
   return name.replace(extra, '').split(delimiter).map(_toPascalCase).join('');
 };
 
