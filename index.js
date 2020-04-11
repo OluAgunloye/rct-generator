@@ -1,69 +1,40 @@
-const { existsSync, mkdirSync, writeFileSync, readFileSync } = require('fs');
 const { Command } = require('commander');
 const { join } = require('path');
+
+const { mkdirp, generateTemplate, formatName } = require('./utils');
+
 const program = new Command();
 program.version('1.0.0');
-
 program
   .command('generate <type> [name]')
-  .description('clone a repository into a newly created directory')
+  .description('generate useful stuff')
   .action((type, name) => {
-    console.log('clone command called', type, name);
+    let basePath = __dirname;
+    const formattedName = formatName(name);
 
-    const componentNameDelimiter = '__NAME__';
-    const StylesContent = readFileSync(join(__dirname, 'templates', 'styles.ts'), 'utf8');
-    const ComponentContent = readFileSync(join(__dirname, 'templates', 'component.tsx'), 'utf8');
-    const ContainerContent = readFileSync(join(__dirname, 'templates', 'container.tsx'), 'utf8');
-    const indexContent = readFileSync(join(__dirname, 'templates', 'screen.tsx'), 'utf8');
-    const formattedName = name.replace(/component/i, '').charAt(0).toUpperCase() + name.substr(1).toLowerCase();
-    const componentsDestination = join(__dirname, 'components');
-    const screensDestination = join(__dirname, 'screens');
-
-    switch (type){
+    switch (type) {
       case 'screen':
-        if (!existsSync(screensDestination)) {
-          mkdirSync(screensDestination);
-        }
-        if (!existsSync(join(screensDestination, formattedName))) {
-          mkdirSync(join(screensDestination, formattedName));
-        }
+        mkdirp(basePath = join(basePath, 'screens', formattedName));
 
-        writeFileSync(join(screensDestination, formattedName, `${formattedName}.container.tsx`), ContainerContent.replace(
-          new RegExp(componentNameDelimiter, "g"),
-          formattedName
-        ));
-        writeFileSync(join(screensDestination, formattedName, `${formattedName}.component.tsx`), ComponentContent.replace(
-          new RegExp(componentNameDelimiter, "g"),
-          formattedName
-        ));
-        writeFileSync(join(screensDestination, formattedName, 'styles.ts'), StylesContent);
-        writeFileSync(join(screensDestination, formattedName, 'index.ts'), indexContent.replace(
-          new RegExp(componentNameDelimiter, "g"),
-          formattedName
-        ));
+        generateTemplate(join(basePath, `${formattedName}.container.tsx`), 'container.tsx', formattedName);
+        generateTemplate(join(basePath, `${formattedName}.component.tsx`), 'component.tsx', formattedName);
+        generateTemplate(join(basePath, 'index.ts'), 'screen.ts', formattedName);
+        generateTemplate(join(basePath, 'styles.ts'), 'styles.ts');
         break;
+
       case 'component':
-        if (!existsSync(componentsDestination)) {
-          mkdirSync(componentsDestination);
-        }
-        if (!existsSync(join(componentsDestination, formattedName))) {
-          mkdirSync(join(componentsDestination, formattedName));
-        }
-        
-        writeFileSync(
-          join(componentsDestination, formattedName, "index.tsx"),
-          ComponentContent.replace(
-            new RegExp(componentNameDelimiter, "g"),
-            formattedName
-          )
-        );
+        mkdirp(basePath = join(basePath, 'components', formattedName));
 
-        writeFileSync(join(componentsDestination, formattedName, 'styles.ts'), StylesContent);
+        generateTemplate(join(basePath, 'index.tsx'), 'component.tsx', formattedName);
+        generateTemplate(join(basePath, 'styles.ts'), 'styles.ts');
         break;
+
       default:
+        console.log('usage: generate <type> [name]');
         break;
     }
-  });
 
+    process.exit(1);
+  });
 
 program.parse(process.argv);
