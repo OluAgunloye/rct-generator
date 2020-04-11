@@ -14,7 +14,9 @@ const _toPascalCase = (str) => {
 };
 
 const formatName = (name) => {
-  return name.replace(/component/i, '').split(/-|_/).map(_toPascalCase).join('');
+  const delimiter = /-|_/;
+  const extra = /component|container|screen/i;
+  return name.replace(extra, '').split(delimiter).map(_toPascalCase).join('');
 };
 
 const generateTemplate = (destination, templateSrc, replacement) => {
