@@ -1,3 +1,6 @@
+#!/usr/bin/env node
+"use strict";
+
 const { Command } = require('commander');
 const { join } = require('path');
 
@@ -9,7 +12,7 @@ program
   .command('generate <type> [name]')
   .description('generate useful stuff')
   .action((type, name) => {
-    let basePath = __dirname;
+    let basePath = process.cwd();
     const formattedName = formatName(name);
 
     switch (type) {

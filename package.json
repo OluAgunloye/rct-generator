@@ -1,10 +1,16 @@
 {
-  "name": "rn-cli",
-  "version": "1.0.0",
+  "name": "@nodegramdev/rn-cli",
+  "version": "1.0.4",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "rn-cli": "./index.js"
   },
   "repository": {
     "type": "git",
@@ -18,8 +24,5 @@
   "homepage": "https://github.com/nodegram/rn-cli#readme",
   "dependencies": {
     "commander": "^5.0.0"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
   }
 }
