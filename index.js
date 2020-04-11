@@ -12,7 +12,7 @@ program
   .command('generate <type> [name]')
   .description('generate useful stuff')
   .action((type, name) => {
-    let basePath = process.cwd();
+    let basePath = process.cwd() + '/app';
     const formattedName = formatName(name);
 
     switch (type) {
