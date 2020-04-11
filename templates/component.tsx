@@ -8,7 +8,7 @@ type Props = {};
 const __NAME__ = ({}: Props) => {
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>__NAME__</Text>
+      <Text style={styles.title}>__TITLE__</Text>
     </SafeAreaView>
   );
 };

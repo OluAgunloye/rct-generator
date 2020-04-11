@@ -3,10 +3,11 @@ const { join } = require("path");
 
 const _replaceAll = (str, replacement) => {
   const delimiter = '__NAME__';
-  return str.replace(
-    new RegExp(delimiter, "g"),
-    replacement
-  );
+  const title = '__TITLE__';
+
+  return str
+    .replace(new RegExp(delimiter, 'g'), replacement)
+    .replace(new RegExp(title, 'g'), replacement.replace('Component', ''));
 };
 
 const _toPascalCase = (str) => {
