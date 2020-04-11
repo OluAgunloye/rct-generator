@@ -18,5 +18,8 @@
   "homepage": "https://github.com/nodegram/rn-cli#readme",
   "dependencies": {
     "commander": "^5.0.0"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
   }
 }
