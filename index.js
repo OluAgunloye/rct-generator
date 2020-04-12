@@ -4,18 +4,20 @@
 const { Command } = require('commander');
 const { join } = require('path');
 
+const packageJson = require('./package.json');
+
 const { mkdirp, generateTemplate, formatName } = require('./utils');
 
 const program = new Command();
 
 program
-  .version('1.0.0')
-  .option('-s, --screen <name>', 'indicate whether a commponent should be generated for an existing screen')
+  .version(packageJson.version)
+  .option('-s, --screen <name>', 'Generate component for an existing screen.')
 
 program
-  .command('generate <type> [name]')
+  .command('generate [type] [name]')
   .alias('g')
-  .description('generate useful stuff')
+  .description('Generate screen or component.')
   .action((type, name) => {
     let basePath = process.cwd() + '/src';
     const formattedName = formatName(name);
