@@ -1,3 +1,6 @@
+#!/usr/bin/env node
+"use strict";
+
 const { Command } = require('commander');
 const { join } = require('path');
 
@@ -9,15 +12,15 @@ program
   .command('generate <type> [name]')
   .description('generate useful stuff')
   .action((type, name) => {
-    let basePath = __dirname;
+    let basePath = process.cwd() + '/src';
     const formattedName = formatName(name);
 
     switch (type) {
       case 'screen':
         mkdirp(basePath = join(basePath, 'screens', formattedName));
 
+        generateTemplate(join(basePath, `${formattedName}.component.tsx`), 'component.tsx', formattedName + 'Component');
         generateTemplate(join(basePath, `${formattedName}.container.tsx`), 'container.tsx', formattedName);
-        generateTemplate(join(basePath, `${formattedName}.component.tsx`), 'component.tsx', formattedName);
         generateTemplate(join(basePath, 'index.ts'), 'screen.ts', formattedName);
         generateTemplate(join(basePath, 'styles.ts'), 'styles.ts');
         break;

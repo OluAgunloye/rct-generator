@@ -1,16 +1,16 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { SafeAreaView, Text } from 'react-native';
 
 import styles from './styles';
 
 type Props = {};
 
-const __NAME__Component = ({}: Props) => {
+const __NAME__ = ({}: Props) => {
   return (
-    <View style={styles.container}>
-      <Text>__NAME__ works!!</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>__TITLE__</Text>
+    </SafeAreaView>
   );
 };
 
-export default __NAME__Component;
+export default __NAME__;
