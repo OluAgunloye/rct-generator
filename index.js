@@ -14,12 +14,14 @@ program
 
 program
   .command('generate <type> [name]')
+  .alias('g')
   .description('generate useful stuff')
   .action((type, name) => {
     let basePath = process.cwd() + '/src';
     const formattedName = formatName(name);
 
     switch (type) {
+      case 's':
       case 'screen':
         mkdirp(basePath = join(basePath, 'screens', formattedName));
 
@@ -29,6 +31,7 @@ program
         generateTemplate(join(basePath, 'styles.ts'), 'styles.ts');
         break;
 
+      case 'c':
       case 'component':
         if (program.screen) {
           mkdirp(basePath = join(basePath, 'screens', formatName(program.screen), formattedName));
