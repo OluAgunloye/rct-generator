@@ -31,12 +31,13 @@ program
 
       case 'component':
         if (program.screen) {
-
+          mkdirp(basePath = join(basePath, 'screens', formatName(program.screen), formattedName));
+        } else {
+          mkdirp(basePath = join(basePath, 'components', formattedName));  
         }
-        // mkdirp(basePath = join(basePath, 'components', formattedName));
-
-        // generateTemplate(join(basePath, 'index.tsx'), 'component.tsx', formattedName);
-        // generateTemplate(join(basePath, 'styles.ts'), 'styles.ts');
+        
+        generateTemplate(join(basePath, 'index.tsx'), 'component.tsx', formattedName);
+        generateTemplate(join(basePath, 'styles.ts'), 'styles.ts');
         break;
 
       default:
