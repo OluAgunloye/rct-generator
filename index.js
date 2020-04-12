@@ -7,7 +7,11 @@ const { join } = require('path');
 const { mkdirp, generateTemplate, formatName } = require('./utils');
 
 const program = new Command();
-program.version('1.0.0').option('-s, --screen <type`>', 'indicate whether a commponent should be generated for an existing screen')
+
+program
+  .version('1.0.0')
+  .option('-s, --screen <name>', 'indicate whether a commponent should be generated for an existing screen')
+
 program
   .command('generate <type> [name]')
   .description('generate useful stuff')
@@ -27,7 +31,7 @@ program
 
       case 'component':
         if (program.screen) {
-          
+
         }
         // mkdirp(basePath = join(basePath, 'components', formattedName));
 
