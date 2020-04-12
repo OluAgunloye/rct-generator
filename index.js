@@ -4,7 +4,7 @@ const { join } = require('path');
 const { mkdirp, generateTemplate, formatName } = require('./utils');
 
 const program = new Command();
-program.version('1.0.0');
+program.version('1.0.0').option('-s, --screen <type`>', 'indicate whether a commponent should be generated for an existing screen')
 program
   .command('generate <type> [name]')
   .description('generate useful stuff')
@@ -23,10 +23,13 @@ program
         break;
 
       case 'component':
-        mkdirp(basePath = join(basePath, 'components', formattedName));
+        if (program.screen) {
+          
+        }
+        // mkdirp(basePath = join(basePath, 'components', formattedName));
 
-        generateTemplate(join(basePath, 'index.tsx'), 'component.tsx', formattedName);
-        generateTemplate(join(basePath, 'styles.ts'), 'styles.ts');
+        // generateTemplate(join(basePath, 'index.tsx'), 'component.tsx', formattedName);
+        // generateTemplate(join(basePath, 'styles.ts'), 'styles.ts');
         break;
 
       default:
