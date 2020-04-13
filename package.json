@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "publish:patch": "npm version patch && npm publish",
-    "publish:minor": "npm version minor && npm publish",
-    "publish:major": "npm version major && npm publish",
+    "publish:patch": "jest && npm version patch && npm publish",
+    "publish:minor": "jest && npm version minor && npm publish",
+    "publish:major": "jest && npm version major && npm publish",
     "test": "jest"
   },
   "publishConfig": {
