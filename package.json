@@ -7,7 +7,7 @@
     "publish:patch": "npm version patch && npm publish",
     "publish:minor": "npm version minor && npm publish",
     "publish:major": "npm version major && npm publish",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "publishConfig": {
     "access": "public"
