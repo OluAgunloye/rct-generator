@@ -3,6 +3,7 @@
 
 const { Command } = require('commander');
 const { join } = require('path');
+const { existsSync } = require('fs');
 
 const packageJson = require('./package.json');
 
@@ -38,8 +39,11 @@ program
       case 'c':
       case 'component':
         if (program.screen) {
+          if (!existsSync(join(basePath, 'screens', formatName(program.screen)))) {
+            console.warn(`[Warning] Screen ${program.screen} not found. Component has been created regardless in ${basePath}. Please run rct-generator generate screen ${program.screen}`);  
+          }
+
           mkdirp(basePath = join(basePath, 'screens', formatName(program.screen), formattedName));
-          console.warn(`[Warning] Screen ${program.screen} not found. Component has been created regardless in ${basePath}. Please run rct-generator generate screen ${program.screen}`);
         } else {
           mkdirp(basePath = join(basePath, 'components', formattedName));  
         }
