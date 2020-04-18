@@ -38,6 +38,7 @@ program
       case 'component':
         if (program.screen) {
           mkdirp(basePath = join(basePath, 'screens', formatName(program.screen), formattedName));
+          console.warn(`[Warning] Screen ${program.screen} not found. Component has been created regardless in ${basePath}. Please run rct-generator generate screen ${program.screen}`);
         } else {
           mkdirp(basePath = join(basePath, 'components', formattedName));  
         }
