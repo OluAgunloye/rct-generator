@@ -1,5 +1,5 @@
-const { existsSync, mkdirSync, writeFileSync, readFileSync } = require("fs");
-const { join } = require("path");
+const { existsSync, mkdirSync, writeFileSync, readFileSync } = require('fs');
+const { join } = require('path');
 
 const _replaceAll = (str, replacement) => {
   const delimiter = '__NAME__';
@@ -26,6 +26,26 @@ const generateTemplate = (destination, templateSrc, replacement) => {
   writeFileSync(destination, content);
 };
 
+const getBasePath = (overridePath) => {
+  const base = process.cwd();
+
+  if (overridePath) {
+    return join(base, overridePath);
+  }
+
+  const defaultPaths = ['src', 'app'];
+
+  for (const path of defaultPaths) {
+    const expectedPath = join(base, `/${path}`);
+
+    if (existsSync(expectedPath)) {
+      return expectedPath;
+    }
+  }
+
+  return join(base, defaultPaths[0]);
+};
+
 const mkdirp = (path) => {
   let currentPath = process.cwd();
 
@@ -38,4 +58,4 @@ const mkdirp = (path) => {
   });
 };
 
-module.exports = { mkdirp, generateTemplate, formatName };
+module.exports = { mkdirp, getBasePath, generateTemplate, formatName };

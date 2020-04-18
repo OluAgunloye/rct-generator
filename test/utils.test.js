@@ -5,13 +5,38 @@ const utils = require('../utils');
 
 describe('mkdirp', () => {
   it('should create nested directories', async () => {
-    const basePath = join(__dirname, '../dir1');
+    const basePath = join(process.cwd(), 'dir1');
     const directoryPath = join(basePath, 'dir2/dir3');
 
     utils.mkdirp(directoryPath);
     expect(fs.existsSync(directoryPath)).toBe(true);
 
     fs.rmdirSync(basePath, { recursive: true });
+  });
+});
+
+describe('getBasePath', () => {
+  it('should generate inside default path', async () => {
+    const expectedPath = join(process.cwd(), 'src');
+    const generatedPath = utils.getBasePath();
+    expect(generatedPath).toBe(expectedPath);
+  });
+
+  it('should generate inside path app if exists', async () => {
+    const appPath = join(process.cwd(), 'app');
+    utils.mkdirp(appPath);
+
+    const generatedPath = utils.getBasePath();
+    expect(generatedPath).toBe(appPath);
+
+    fs.rmdirSync(appPath, { recursive: true });
+  });
+
+  it('should generate inside path in param', async () => {
+    const param = 'MyCustomFolder';
+    const expectedPath = join(process.cwd(), param);
+    const generatedPath = utils.getBasePath(param);
+    expect(generatedPath).toBe(expectedPath);
   });
 });
 

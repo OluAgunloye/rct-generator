@@ -6,12 +6,13 @@ const { join } = require('path');
 
 const packageJson = require('./package.json');
 
-const { mkdirp, generateTemplate, formatName } = require('./utils');
+const { mkdirp, getBasePath, generateTemplate, formatName } = require('./utils');
 
 const program = new Command();
 
 program
   .version(packageJson.version)
+  .option('--basePath <path>', 'Set source code base path')
   .option('-s, --screen <name>', 'Generate component for an existing screen.')
 
 program
@@ -19,7 +20,7 @@ program
   .alias('g')
   .description('Generate screen or component.')
   .action((type, name) => {
-    let basePath = process.cwd() + '/src';
+    let basePath = getBasePath(program.basePath);
     const formattedName = formatName(name);
 
     switch (type) {
@@ -31,7 +32,7 @@ program
         generateTemplate(join(basePath, `${formattedName}.container.tsx`), 'container.tsx', formattedName);
         generateTemplate(join(basePath, 'index.ts'), 'screen.ts', formattedName);
         generateTemplate(join(basePath, 'styles.ts'), 'styles.ts');
-        
+
         break;
 
       case 'c':
@@ -41,7 +42,7 @@ program
         } else {
           mkdirp(basePath = join(basePath, 'components', formattedName));  
         }
-        
+
         generateTemplate(join(basePath, 'index.tsx'), 'component.tsx', formattedName);
         generateTemplate(join(basePath, 'styles.ts'), 'styles.ts');
         break;
