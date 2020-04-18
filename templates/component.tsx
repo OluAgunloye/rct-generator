@@ -11,6 +11,6 @@ function __NAME__({}: Props) {
       <Text style={styles.title}>__TITLE__</Text>
     </SafeAreaView>
   );
-};
+}
 
 export default __NAME__;
