@@ -18,6 +18,17 @@ test('On create component without --screen', async () => {
 });
 
 // TODO: add test for generate component with --screen
+test('On create component with --screen', async () => {
+  let result = await cli(['generate', 'component', 'test-comp', '--screen', 'test-scr']);
+
+  const baseComponentPath = join(BASE_PATH, 'screens', 'TestScr', 'TestComp');
+
+  expect(fs.existsSync(baseComponentPath)).toBe(true);
+  expect(fs.existsSync(join(baseComponentPath, 'index.tsx'))).toBe(true);
+  expect(fs.existsSync(join(baseComponentPath, 'styles.ts'))).toBe(true);
+
+  fs.rmdirSync(BASE_PATH, { recursive: true });
+});
 
 // TODO: add test for generate screen
 
